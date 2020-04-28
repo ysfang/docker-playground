@@ -13,7 +13,7 @@ services:
       - cms-web-html-sites:/var/www/html/sites
     networks:
       - cms-bridge
-    restart: always
+    restart: always # restart a container, default is no.
 
   postgres:
     image: postgres:10
