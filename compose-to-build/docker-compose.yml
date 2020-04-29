@@ -1,0 +1,54 @@
+version: '3.1'
+
+services:
+
+  drupal:
+    # When add "build" and "image" attributes to a compose service, it knows to use the image name to write to in our image cache, rather then pull from Docker Hub.
+    image: custom-drupal
+    # build can be specified either as a string containing a path to the build context
+    build: .
+    # Or, as an object with the path specified under context and optionally Dockerfile and args:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    #   args:
+    #     foo: bar
+    ports:
+      - 8080:80
+    # in docker compose, named volume must declare in the volumes section
+    volumes:
+      - cms-web-html-modules:/var/www/html/modules
+      - cms-web-html-profiles:/var/www/html/profiles
+      - cms-web-html-themes:/var/www/html/themes
+      - cms-web-html-sites:/var/www/html/sites
+    networks:
+      - cms-bridge
+    restart: always # restart a container, default is no.
+
+  postgres:
+    image: postgres:10
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      # linking created volume to container storage. volume name can be found with `docker volume ls`.
+      - cms-db-data:/var/lib/postgresql/data
+      # linking host storage to container storage. Won't create volume.
+      #- $HOST_CANONICAL_PATH:/var/lib/postgresql/data
+      # not specifying host_path nor volume name to container storage. Docker would create a randomly named volume. It can be found with `docker volume ls`.
+      #- /var/lib/postgresql/data
+    # ports: # should not reveal, expose for debug only.
+      # - 5432:5432
+    networks:
+      - cms-bridge
+    restart: always
+
+# Docker would create volumes named after: $FOLDER_NAME_$VOLUME_NAME
+volumes:
+  cms-web-html-modules:
+  cms-web-html-profiles:
+  cms-web-html-themes:
+  cms-web-html-sites:
+  cms-db-data:
+
+networks:
+  cms-bridge:
