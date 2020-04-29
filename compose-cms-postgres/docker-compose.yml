@@ -6,6 +6,7 @@ services:
     image: drupal:8-apache
     ports:
       - 8080:80
+    # in docker compose, named volume must declare in the volumes section      
     volumes:
       - cms-web-html-modules:/var/www/html/modules
       - cms-web-html-profiles:/var/www/html/profiles
@@ -32,6 +33,7 @@ services:
       - cms-bridge
     restart: always
 
+# Docker would create volumes named after: $FOLDER_NAME_$VOLUME_NAME
 volumes:
   cms-web-html-modules:
   cms-web-html-profiles:
