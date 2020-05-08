@@ -1,11 +1,13 @@
-# Introduction
+# Building custom Nginx image
+
+## Introduction
 
 Practice for Docker build and push of an image.
 Using Dockerfile to replace the default Nginx `index.html`.
 
-# Usage
+## Usage
 
-```
+```bash
 // Build image and tag with "{user}/{image_name}:{version}"
 docker image build -t ysfang82/nginx-replace-index:latest .
 

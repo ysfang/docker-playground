@@ -1,8 +1,10 @@
-# Introduction
+# Docker Compose including custom image build
+
+## Introduction
 
 Practice for Docker Compose to build. Building a customized Drupal CMS web (add a "Bootstrap" option in Appearance --> Uninstalled themes) and a Postgres DB during `docker-compose up`.
 
-# Detail
+## Detail
 
 * Dockerfile
   * pull drupal:8-apache
@@ -15,9 +17,9 @@ Practice for Docker Compose to build. Building a customized Drupal CMS web (add 
   * assign a custom name for Drupal being built
   * specify build info for Drupal
 
-# Usage
+## Usage
 
-```
+```bash
 // run containers and build image(s) if not found in cache
 docker-compose up
 
@@ -35,7 +37,7 @@ docker-compose down -v
 
 ```
 
-# Tips
+## Tips
 
 * Dockerfile
   * Saving space is critical for building image (clean up cache, pull necessary data only).
