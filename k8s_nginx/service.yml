@@ -1,0 +1,26 @@
+# kubectl expose deployment my-nginx --name=my-nginx-service --type=NodePort --port=80 --dry-run -o yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2020-05-07T15:04:08Z
+  labels:
+    app: my-nginx
+  name: my-nginx-service
+  namespace: default
+  resourceVersion: "169120"
+  selfLink: /api/v1/namespaces/default/services/my-nginx-service
+  uid: 1f81758b-1e03-4bbb-a843-05576945a63b
+spec:
+  clusterIP: 10.103.40.0
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 32273
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: my-nginx
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
